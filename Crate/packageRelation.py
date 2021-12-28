@@ -51,10 +51,13 @@ def lastest_version(name):
 
 
 def dependencies(name, version):
-    url = "https://crates.io/api/v1/crates/{0}/{1}/dependencies".format(name, version)
-    res = requests.get(url).json()["dependencies"]
-    deps = [q["crate_id"] for q in res]
-    return deps
+    try:
+        url = "https://crates.io/api/v1/crates/{0}/{1}/dependencies".format(name, version)
+        res = requests.get(url).json()["dependencies"]
+        deps = [q["crate_id"] for q in res]
+        return deps
+    except:
+        return []
 
 
 if __name__ == "__main__":
